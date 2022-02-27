@@ -1,0 +1,105 @@
+    \documentclass[twoside,11pt]{book}%
+    \usepackage[latin1]{inputenc}
+    \usepackage[T1]{fontenc}
+    \usepackage{lmodern,lscape,color}
+    \usepackage{textcomp}
+    \usepackage{eurosym}
+    \usepackage{geometry}
+    \usepackage{lastpage}
+	\usepackage{slashbox}
+    \usepackage{mathrsfs, amsfonts,amsmath,amssymb}
+    \usepackage{theorem,etoolbox}
+    \renewcommand{\geq}{\geqslant}
+    \renewcommand{\leq}{\leqslant}
+    \usepackage{fancyhdr}
+    \usepackage{afterpage}
+    \usepackage{graphicx}
+    \usepackage{ifthen}
+    \usepackage{calc,bm}
+    \usepackage{tabularx}
+    \usepackage{units} % \units[1]{cm}
+    \usepackage[french]{babel}
+    \frenchbsetup{ReduceListSpacing=false,CompactItemize=false}
+    \usepackage[autolanguage]{numprint}
+    \usepackage{icomma}
+	\usepackage{here}
+	\usepackage{mdwlist,multicol,multirow}
+    \usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{external,matrix,arrows,calc}
+\usetikzlibrary{decorations.pathreplacing,shapes,snakes}
+\usetikzlibrary{arrows,patterns,arrows.meta}
+\tikzexternalize[prefix=tikz/]
+    \usepackage{enumerate}
+	\usepackage{paralist}	
+    \usepackage{caption}
+	\providecommand*\showkeyslabelformat[1]{\raisebox{-0.5cm}{\tiny \ttfamily #1}}
+    \usepackage[final,notref]{showkeys}
+	\usepackage{pdfpages}
+	\geometry{a4paper,left=2.1cm,right=2.1cm,marginparwidth=0.3cm,top=2.7cm,bottom=2.7cm,headsep=1em,footskip=-0.9cm}
+    \fancypagestyle{otherpage}{
+      \renewcommand{\headrulewidth}{0pt}
+      \renewcommand{\footrulewidth}{0.4pt}
+      \fancyhead{}
+      \lfoot[\thepage/\pageref{LastPage}]{Mathématiques 6}
+      \cfoot{{Stéphan Sémirat}}
+      \rfoot[Maths 6]{\thepage/\pageref{LastPage}}
+    }
+	\renewcommand*\arraystretch{1.5}
+    \newcounter{Cexe}\renewcommand{\theCexe}{Ex. \arabic{Cexe}\,}{\theorembodyfont{\mdseries}\theoremstyle{margin}\newtheorem{exercice}[Cexe]{}}
+	\AtBeginEnvironment{exercice}{\pagebreak[1]}\AtEndEnvironment{exercice}{}
+     \setlength{\parindent}{0pt}
+	 \setlength{\parskip}{1.0em}
+\begin{document}
+\pagestyle{otherpage}%
+%\noindent\begin{minipage}{0.5\textwidth}\includegraphics[width=5.05cm]{../../logo-color.jpg}\end{minipage}\hfill
+{L3 - \'Eco-G}\hfill \Large\textit{Mathématiques 6}
+
+% \begin{tabular*}{\textwidth}{c c@{\extracolsep{\fill}}c@{\extracolsep{\fill}} c@{\extracolsep{\fill}}c@{\extracolsep{\fill}} c@{\extracolsep{\fill}}c}
+% \textbullet&Barème par acquis&\textbullet&Durée : 4h00&\textbullet&Calculatrice autorisée&\textbullet
+% \end{tabular*}
+
+\newlength\q
+\setlength\q{\dimexpr \textwidth -1\tabcolsep}
+%\noindent\fbox{\begin{minipage}{\q}\begin{center}SUJET (4 pages)\end{center}\end{minipage}}
+
+\begin{exercice}
+On note, pour tout $x\in\mathbb{R}$, $\sigma(x)=\frac{1}{1+e^{-x}}$.
+
+Vérifier que :\\
+$\sigma'=(1-\sigma)\sigma$,\\$(\ln(\sigma(u)))'=(1-\sigma)u'$,\\$(\ln(1-\sigma(u)))'=-\sigma(u)u'$.
+
+\textit{Rappel :}\\$(u(v))'=u'(v)\times v'$ avec comme cas particuliers : $(\ln(u))'=\frac{u'}{u}$, $(e^u)'=u'e^u$.
+\end{exercice}
+
+\textbf{\Large Maximum de vraisemblance.}
+
+\'Etant données des observations $X_j\mapsto Y_j$, $j\in\{1,\ldots,J\}$, avec $X_j\in\mathbb{R}^n$ et $Y_j\in\{0,1\}$, on cherche une << bonne explication >> des valeurs de $Y$ à partir de celle de $X$.
+
+À cette fin, on considère que les valeurs $Y_j$ sont en partie aléatoires, et issues des valeurs des $X$ à travers une loi de probabilité $P:X\mapsto P(Y=1|X)$, exprimant la probabilité que $Y=1$ étant donné des valeurs $X$. Le problème est alors de trouver une << bonne >> loi de probabilité $P$.
+
+Si les valeurs de $Y$ sont effectivement issues de $P$, alors étant donné $X_j$, la probabilité d'observer $Y=1$ est $P(Y=1|X_j)$, et celle d'observer $Y=0$ est $1-P(Y=1|X_j)$.
+Par conséquent $$P(Y=1|X_j)^{Y_j}(1-P(Y=1|X_j))^{1-Y_j}$$ est la probabilité d'observer $Y=Y_j$ étant donné $X_j$.
+
+Plus généralement, si chaque observation est indépendante des autres, alors la \emph{vraisemblance} de la loi $P$, donnée par $$L(P)=\prod\limits_j P(Y=1|X_j)^{Y_j}(1-P(Y=1|X_j))^{1-Y_j}$$ est la probabilité d'observer $Y=Y_1$ (étant donné $X_1$) \textit{et} $Y=Y_2$ (étant donné $X_2$) \textit{et} \ldots \textit{et} $Y=Y_J$ (étant donné $X_J$).
+
+En général, on paramétrise $P$, et le problème est alors de trouver la valeur des paramètres maximisant la vraisemblance de $P$.
+\clearpage
+\begin{exercice}
+On considère les observations :\\
+ $X_1=\begin{pmatrix}1&1\end{pmatrix}\mapsto Y_1=1$, $X_2=\begin{pmatrix}1&0\end{pmatrix}\mapsto Y_2=0$, $X_3=\begin{pmatrix}0&1\end{pmatrix}\mapsto Y_3=0$ et $X_4=\begin{pmatrix}0&0\end{pmatrix}\mapsto Y_4=0$.\\
+On consière les lois définies, pour tout $X=\begin{pmatrix}x_1&x_2\end{pmatrix}$, par $$P(Y=1|X)=\sigma(b+w_1x_1+w_2x_2)$$ avec $b$, $w_1$, $w_2\in\mathbb{R}$.
+ 
+ \begin{enumerate}
+ \item Expliciter la log-vraisemblance, donnée par  
+$$\begin{array}{l}\ln(L(b,w_1,w_2))\\=\sum\limits_j \big(Y_j\ln(P(Y=1|X_j)+(1-Y_j)\ln(1-P(Y=1|X_j)\big).\end{array}$$
+pour la loi $P:X\mapsto \sigma(b+w_1x_1+w_2x_2)$ et pour les données $(Y_j,X_j)$ ci-dessus.
+ \item Vérifier que $(b,w_1,w_2)\mapsto \ln(L(b,w_1,w_2))$ est une fonction partout concave.\\
+ \textit{Indication :} La somme de fonctions concaves est concave : il suffit donc de montrer que chaque terme de la vraisemblance est une fonction concave.\\
+ Par ailleurs, il est possible d'utiliser le critère de Sylvester pour montrer qu'une fonction est concave : une fonction est concave si la fonction opposée est convexe.
+ 
+ \item Expliciter le système d'équations à résoudre afin de déterminer l'éventuel maximum de $\ln(L(b,w_1,w_2))$. Est-il possible de résoudre ce système ?
+\end{enumerate}
+\end{exercice}
+
+\end{document}
